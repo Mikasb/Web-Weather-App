@@ -8,7 +8,7 @@ const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'weatherDB'
-
+const port = process.env.PORT || 3000
 
 
 /**
@@ -109,6 +109,6 @@ const retrieveData = (callback) => {
     })
 }
 
-app.listen(3000, () => {
-    console.log('Server connection was established.')
+app.listen(port, () => {
+    console.log('Server connection was established.', port)
 })
