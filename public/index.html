@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>  
+    <head> 
+        <meta charset="utf-8">
+        <title>Weather Chart</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="icon" href="/images/tabimg.png">
+        <script defer src="/js/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    </head>
+    <body>
+        <div class="content-container">
+            <header>
+                <h1>Weather</h1>
+            </header>
+            <button class="refreshBtn">Refresh</button>
+            <button class="twelveHourBtn">12h</button>
+            <button class="oneDayBtn">1day</button>
+            <button class="threeDayBtn">3days</button>
+            <div class = "chart-container">
+                <canvas id="weatherChart"></canvas>
+            </div>
+            <footer>
+                <p>Created by Mikas Beliackas 2020</p>
+            </footer>
+        </div>
+    </body>
+</html>
