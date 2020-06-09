@@ -8,7 +8,7 @@ const weather = require('./appUtils/weather')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const connectionURL = process.env.MONGODB_URI || 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority' //can add local 
-const databaseName = 'heroku_t6pcqx08'
+const databaseName = 'weatherDB'
 const port = process.env.PORT || 3000
 
 
@@ -25,7 +25,9 @@ app.use(express.static(publicFolderPath))
  */
 app.get('/weather', (req, res) => {
     if (!req.query.cityName) {
-        return res.send(databaseData)
+        return res.send({
+            error: 'Must provide a city name.'
+        })
     }
     retrieveData((databaseData) => {
         res.send(databaseData)
