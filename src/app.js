@@ -4,10 +4,11 @@ const path = require('path')
 const app = express()
 const geolocation = require('./appUtils/geolocation')
 const weather = require('./appUtils/weather')
+//DB variables
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
-const connectionURL = process.env.MONGODB_URI || 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority'
-const databaseName = 'weatherDB'
+const connectionURL = process.env.MONGODB_URI || 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority' //can add local 
+const databaseName = 'heroku_t6pcqx08'
 const port = process.env.PORT || 3000
 
 
@@ -69,7 +70,7 @@ app.post('/update', (req, res) => {
  * @param {*} weatherApiUrls - array of URL's of weather API 
  */
 const insertData = (weatherApiUrls) => {
-    MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
+    MongoClient.connect(connectionURL, (error, client) => {
         if (error) {
             console.log('Failed to connect to the database while inserting data.');
         } else {
@@ -81,7 +82,7 @@ const insertData = (weatherApiUrls) => {
             Promise.all(allPromises).then((results) => {
                 results.forEach(result => {
                     result.forEach(document => {
-                        db.collection('weather').update({ 'observation_time.value': document.observation_time.value }, document, { upsert: true })
+                        db.collection(databaseName).update({ 'observation_time.value': document.observation_time.value }, document, { upsert: true })
                     })
                 })
             })
@@ -95,12 +96,12 @@ const insertData = (weatherApiUrls) => {
  * @param {*} callback 
  */
 const retrieveData = (callback) => {
-    MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
+    MongoClient.connect(connectionURL, (error, client) => {
         if (error) {
             console.log('Failed to connect to the database while retrieving data.');
         } else {
             const db = client.db(databaseName);
-            db.collection('weather').find({}).sort({ 'observation_time.value': +1 }).toArray((error, retrievedData) => {
+            db.collection(databaseName).find({}).sort({ 'observation_time.value': +1 }).toArray((error, retrievedData) => {
                 callback(retrievedData);
             })
         }
