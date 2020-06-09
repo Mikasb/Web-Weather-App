@@ -23,11 +23,11 @@ app.use(express.static(publicFolderPath))
  * and sends the data using retrieveData method.
  */
 app.get('/weather', (req, res) => {
-    // if (!req.query.cityName) {
-    //     return res.send({
-    //         error: 'City name is required'
-    //     })
-    // }
+    if (!req.query.cityName) {
+        return res.send({
+            error: 'City name is required'
+        })
+    }
     retrieveData((databaseData) => {
         res.send(databaseData)
     })

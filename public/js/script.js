@@ -9,8 +9,9 @@ getData();
 
 twelveHourBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    fetch(`/weather`).then(response => {
+    fetch(`/weather?cityName=${cityName}`).then(response => {
     response.json().then(parsedData => {
+        console.log('got parsed data')
         lineChart.destroy();
         drawChart(parsedData, 24);
         })
@@ -19,7 +20,7 @@ twelveHourBtn.addEventListener('click', (event) => {
 
 threeDayBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    fetch(`/weather`).then(response => {
+    fetch(`/weather?cityName=${cityName}`).then(response => {
     response.json().then(parsedData => {
         lineChart.destroy();
         drawChart(parsedData, 144);
@@ -29,7 +30,7 @@ threeDayBtn.addEventListener('click', (event) => {
 
 oneDayBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    fetch(`/weather`).then(response => {
+    fetch(`/weather?cityName=${cityName}`).then(response => {
     response.json().then(parsedData => {
         lineChart.destroy();
         drawChart(parsedData, 48);
@@ -54,7 +55,7 @@ refreshBtn.addEventListener('click', (event) => {
 
 
 async function getData(period = 24){
-    fetch(`/weather`).then(response => {
+    fetch(`/weather?cityName=${cityName}`).then(response => {
     response.json().then(parsedData => {
         drawChart(parsedData, period);
         })
