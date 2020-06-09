@@ -9,7 +9,8 @@ const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const connectionURL = process.env.MONGODB_URI || 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority' //can add local 
 const databaseName = 'weatherDB'
-const port = process.env.PORT || 3000
+//const port = process.env.PORT || 3000
+const port = 8080
 
 
 /**
