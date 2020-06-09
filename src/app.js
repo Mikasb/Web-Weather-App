@@ -24,9 +24,7 @@ app.use(express.static(publicFolderPath))
  */
 app.get('/weather', (req, res) => {
     if (!req.query.cityName) {
-        return res.send({
-            error: 'City name is required'
-        })
+        return res.send(databaseData)
     }
     retrieveData((databaseData) => {
         res.send(databaseData)
