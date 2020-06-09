@@ -6,7 +6,7 @@ const geolocation = require('./appUtils/geolocation')
 const weather = require('./appUtils/weather')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
-const connectionURL = 'mongodb://127.0.0.1:27017'
+const connectionURL = 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority'
 const databaseName = 'weatherDB'
 const port = process.env.PORT || 3000
 
