@@ -4,7 +4,7 @@ const threeDayBtn = document.querySelector('.threeDayBtn');
 const refreshBtn = document.querySelector('.refreshBtn');
 let lineChart;
 const cityName = 'Vilnius';
-
+console.log('Client side js started.')
 getData();
 
 twelveHourBtn.addEventListener('click', (event) => {
