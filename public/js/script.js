@@ -11,7 +11,7 @@ twelveHourBtn.addEventListener('click', (event) => {
     event.preventDefault();
     fetch(`/weather?cityName=${cityName}`).then(response => {
     response.json().then(parsedData => {
-        console.log('got parsed data')
+        console.log('got parsed')
         lineChart.destroy();
         drawChart(parsedData, 24);
         })

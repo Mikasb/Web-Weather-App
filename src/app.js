@@ -6,7 +6,7 @@ const geolocation = require('./appUtils/geolocation')
 const weather = require('./appUtils/weather')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
-const connectionURL = 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority'
+const connectionURL = process.env.MONGODB_URI || 'mongodb+srv://Mikasb:Mikasb123@cluster0-tmjix.mongodb.net/weatherDB?retryWrites=true&w=majority'
 const databaseName = 'weatherDB'
 const port = process.env.PORT || 3000
 
@@ -24,13 +24,11 @@ app.use(express.static(publicFolderPath))
  */
 app.get('/weather', (req, res) => {
     if (!req.query.cityName) {
-        retrieveData((databaseData) => {
-            res.send(databaseData)
-        })
+        return res.send(databaseData)
     }
-    // retrieveData((databaseData) => {
-    //     res.send(databaseData)
-    // })
+    retrieveData((databaseData) => {
+        res.send(databaseData)
+    })
 })
 
 /**
@@ -73,7 +71,7 @@ app.post('/update', (req, res) => {
 const insertData = (weatherApiUrls) => {
     MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
         if (error) {
-            console.log('Failed to connect to the database.');
+            console.log('Failed to connect to the database while inserting data.');
         } else {
             const db = client.db(databaseName);
             var allPromises = [];
@@ -99,7 +97,7 @@ const insertData = (weatherApiUrls) => {
 const retrieveData = (callback) => {
     MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
         if (error) {
-            console.log('Failed to connect to the database.');
+            console.log('Failed to connect to the database while retrieving data.');
         } else {
             const db = client.db(databaseName);
             db.collection('weather').find({}).sort({ 'observation_time.value': +1 }).toArray((error, retrievedData) => {
